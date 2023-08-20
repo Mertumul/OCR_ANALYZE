@@ -1,0 +1,7 @@
+[api_keys]
+apininjas = "68IGOXcK4vaLLGoJQZjiog==GWaCdf7pT1EppJdN"
+emailable = "live_21666c830c3af9827de6"
+
+[redis]
+host = "localhost"
+port = "6379"

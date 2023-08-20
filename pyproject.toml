@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "IOC"
+version = "0.1.0"
+description = "ioc enrichment"
+authors = ["mert <mert@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.11"
+dynaconf = "3.2.0"
+fastapi = "0.100.0"
+uvicorn = "0.22.0"
+jinja2 = "3.1.2"
+httpx = "0.24.1"
+
+#
+pytesseract = "0.3.10"
+python-multipart = "0.0.6"
+Pillow = "10.0.0"
+redis = "5.0.0"
+async_timeout = "async_timeout"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

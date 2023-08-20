@@ -1,0 +1,11 @@
+valid list 
+PHONE_NUMBER
+- ID_NUMBER
+- CREDIT_CARD_NUMBER  --> done
+- PLATE  -->skip
+- DATE  --->done
+- EMAIL
+- DOMAIN
+- URL
+- HASH
+- COMBOLIST
