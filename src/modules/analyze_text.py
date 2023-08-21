@@ -2,6 +2,7 @@ from modules.type_detector import extract_patterns
 from validators.domain_validate import check_dns_lookup
 from validators.email_validate import is_email_deliverable, fetch_email_verification
 from validators.cc_validate import is_cc_valid
+from validators.url_validate import is_url_valid
 
 async def analyze_text(input_text):
     findings = []
@@ -29,6 +30,7 @@ async def match_case(pattern_name, match):
     match_result |= await match_credit_card_number(pattern_name, match)
     match_result |= await match_email(pattern_name, match)
     match_result |= await match_domain(pattern_name, match)
+    match_result |= await match_url(pattern_name, match)
     
     return match_result
 
@@ -52,4 +54,10 @@ async def match_domain(pattern_name, match):
     if pattern_name == "DOMAIN":
         domain_valid = await check_dns_lookup(match)
         return {"valid": domain_valid}
+    return {}
+
+async def match_url(pattern_name, match):
+    if pattern_name == "URL":
+        url_valid = await is_url_valid(match)
+        return {"valid": url_valid}
     return {}
