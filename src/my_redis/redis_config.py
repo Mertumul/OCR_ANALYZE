@@ -1,5 +1,6 @@
 import redis
 from dynaconf import Dynaconf
+
 settings = Dynaconf(settings_file="settings.toml")
 
 REDIS_HOST = settings.redis.host

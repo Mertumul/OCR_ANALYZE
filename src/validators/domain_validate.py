@@ -1,11 +1,13 @@
-import httpx
 import logging
+
+import httpx
 from dynaconf import Dynaconf
 
 logging.basicConfig(level=logging.INFO)
 settings = Dynaconf(settings_file="settings.toml")
 
 api_key = settings.api_keys.apininjas
+
 
 async def fetch_dns_lookup_data(domain: str) -> dict:
     """
@@ -29,6 +31,7 @@ async def fetch_dns_lookup_data(domain: str) -> dict:
             logging.error("Error: %s", e)
             return None
 
+
 async def check_dns_lookup(domain: str) -> bool:
     """
     Checks if the fetch_dns_lookup_data function returns a value or not.
@@ -42,7 +45,6 @@ async def check_dns_lookup(domain: str) -> bool:
     result = await fetch_dns_lookup_data(domain)
     if result:
         return True
-    
+
     else:
         return False
-

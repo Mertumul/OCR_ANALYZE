@@ -1,24 +1,34 @@
+import hashlib
+import io
+import json
 import sys
 from typing import List
 
-sys.path.append("..")
 import uvicorn
-from fastapi import FastAPI, Request, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from modules.perform_ocr import perform_ocr
-from modules.analyze_text import analyze_text
-from my_redis.redis_config import redis_client
-
 from PIL import Image
-import io
-import json
-import hashlib
+
+sys.path.append("..")
+from modules.analyze_text import analyze_text  # type:ignore
+from modules.perform_ocr import perform_ocr  # type:ignore
+from my_redis.redis_config import redis_client  # type:ignore
 
 app = FastAPI()
 templates = Jinja2Templates(directory="../../templates")
 app.mount("/static", StaticFiles(directory="../../static"), name="static")
+
+supported_image_mimes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/svg+xml",
+    "image/webp",
+    "image/apng",
+    "image/avif",
+]
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -27,28 +37,34 @@ async def read_search_form(request: Request):
         "index.html", {"request": request, "status": "Success"}
     )
 
+
 @app.post("/upload/")
 async def upload_files(files: List[UploadFile] = File(...)):
     results = []
-    for file in files:
-        contents = await file.read()
+    for uploaded_file in files:
+        if uploaded_file.content_type not in supported_image_mimes:
+            response_body = {"status": "bad request. wrong file format"}
+            return JSONResponse(content=response_body, status_code=400)
+
+        contents = await uploaded_file.read()
         image = Image.open(io.BytesIO(contents))
         text = await perform_ocr(image)
         if not text:
             raise HTTPException(status_code=204, detail="No content provided")
-        
-        hashed_key = hashlib.md5(text.encode()).hexdigest()  # Hash the text using MD5
-        
+
+        hashed_key = hashlib.md5(text.encode()).hexdigest()
+
         cached_result = redis_client.get(hashed_key)
         if cached_result:
-            analysis_result = json.loads(cached_result)  # Load JSON data from cache
+            analysis_result = json.loads(cached_result)
         else:
-            analysis_result = await analyze_text(text)  # Analyze the extracted text
-            redis_client.setex(hashed_key, 300, json.dumps(analysis_result))  # Convert to JSON and cache
-        
-        results.append(analysis_result)  # Append the analysis result to the list
-    
-    return JSONResponse(content=results)  # Return the list of analysis results as JSON
+            analysis_result = await analyze_text(text)
+            redis_client.setex(hashed_key, 300, json.dumps(analysis_result))
+
+        results.append(analysis_result)
+
+    return JSONResponse(content=results)
+
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000)

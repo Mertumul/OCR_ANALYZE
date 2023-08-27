@@ -3,5 +3,5 @@ apininjas = "68IGOXcK4vaLLGoJQZjiog==GWaCdf7pT1EppJdN"
 emailable = "live_21666c830c3af9827de6"
 
 [redis]
-host = "localhost"
+host = "redis"
 port = "6379"

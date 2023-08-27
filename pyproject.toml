@@ -6,20 +6,20 @@ authors = ["mert <mert@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11"
-dynaconf = "3.2.0"
-fastapi = "0.100.0"
-uvicorn = "0.22.0"
-jinja2 = "3.1.2"
-httpx = "0.24.1"
+python = "3.11.4"  # https://www.python.org/
+dynaconf = "3.2.1"  # https://github.com/rochacbruno/dynaconf
+fastapi = "0.100.1"  # https://github.com/tiangolo/fastapi
+uvicorn = "0.23.2"  # https://github.com/encode/uvicor
+jinja2 = "3.1.2" # https://github.com/pallets/jinja
+httpx = "0.24.1" # https://github.com/encode/httpx
 
 #
-pytesseract = "0.3.10"
-python-multipart = "0.0.6"
-Pillow = "10.0.0"
-redis = "5.0.0"
-async_timeout = "async_timeout"
-
+pytesseract = "0.3.10" # https://github.com/madmaze/pytesseract
+python-multipart = "0.0.6" # https://github.com/andrew-d/python-multipart
+Pillow = "10.0.0" # https://github.com/python-pillow/Pillow
+redis = "5.0.0" # https://github.com/redis/redis-py
+async_timeout = "4.0.3" # https://github.com/aio-libs/async-timeout
+beautifulsoup4 = "4.12.2"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
