@@ -12,14 +12,15 @@ fastapi = "0.100.1"  # https://github.com/tiangolo/fastapi
 uvicorn = "0.23.2"  # https://github.com/encode/uvicor
 jinja2 = "3.1.2" # https://github.com/pallets/jinja
 httpx = "0.24.1" # https://github.com/encode/httpx
-
-#
 pytesseract = "0.3.10" # https://github.com/madmaze/pytesseract
 python-multipart = "0.0.6" # https://github.com/andrew-d/python-multipart
 Pillow = "10.0.0" # https://github.com/python-pillow/Pillow
 redis = "5.0.0" # https://github.com/redis/redis-py
 async_timeout = "4.0.3" # https://github.com/aio-libs/async-timeout
-beautifulsoup4 = "4.12.2"
+dateparser = "1.1.8" # https://github.com/scrapinghub/dateparser
+validators = "0.21.2" # https://validators.readthedocs.io/en/latest/
+beautifulsoup4 = "4.12.2" # https://pypi.python.org/pypi/beautifulsoup4
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

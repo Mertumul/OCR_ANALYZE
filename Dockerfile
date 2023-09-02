@@ -23,5 +23,3 @@ RUN poetry config virtualenvs.create false && poetry install --no-interaction --
 # Set the working directory to /app/src/api
 WORKDIR /app/src/api
 
-# Run the command to start the application
-CMD ["poetry", "run", "python", "api.py"]

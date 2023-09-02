@@ -33,6 +33,15 @@ supported_image_mimes = [
 
 @app.get("/", response_class=HTMLResponse)
 async def read_search_form(request: Request):
+    """
+    Serves the HTML form to upload images.
+
+    Args:
+        request (Request): The HTTP request object.
+
+    Returns:
+        TemplateResponse: HTML form template response.
+    """
     return templates.TemplateResponse(
         "index.html", {"request": request, "status": "Success"}
     )
@@ -40,6 +49,15 @@ async def read_search_form(request: Request):
 
 @app.post("/upload/")
 async def upload_files(files: List[UploadFile] = File(...)):
+    """
+    Handles uploaded image files, performs OCR on content, and analyzes the text.
+
+    Args:
+        files (List[UploadFile]): List of uploaded image files.
+
+    Returns:
+        JSONResponse: Analysis results in JSON format.
+    """
     results = []
     for uploaded_file in files:
         if uploaded_file.content_type not in supported_image_mimes:
@@ -58,7 +76,7 @@ async def upload_files(files: List[UploadFile] = File(...)):
         if cached_result:
             analysis_result = json.loads(cached_result)
         else:
-            analysis_result = await analyze_text(text)
+            analysis_result = await analyze_text(text)  
             redis_client.setex(hashed_key, 300, json.dumps(analysis_result))
 
         results.append(analysis_result)

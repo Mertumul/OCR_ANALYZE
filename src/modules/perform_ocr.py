@@ -3,5 +3,14 @@ from PIL import Image
 
 
 async def perform_ocr(image: Image.Image) -> str:
-    text = pytesseract.image_to_string(image, lang="eng", config="--psm 6")
+    """
+    Performs Optical Character Recognition (OCR) on the given image.
+
+    Args:
+        image (Image.Image): The PIL Image object containing the image data.
+
+    Returns:
+        str: The extracted text from the image.
+    """
+    text = pytesseract.image_to_string(image, lang="eng")
     return text.strip()
