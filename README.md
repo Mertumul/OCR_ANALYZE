@@ -58,7 +58,8 @@ This project describes a self-developed endeavor focused on Optical Character Re
    docker-compose up -d
 - Run the FastAPI server:
   or go to the src/api directory and run the following command
--  poetry run uvicorn api:app --host 0.0.0.0 --port 8000
+  ```bash
+   poetry run uvicorn api:app --host 0.0.0.0 --port 8000
 - Access http://localhost:8000 in your browser or API testing tools.
 
 ## Conclusion
