@@ -1,6 +1,6 @@
 [api_keys]
-apininjas = "68IGOXcK4vaLLGoJQZjiog==GWaCdf7pT1EppJdN"
-emailable = "live_21666c830c3af9827de6"
+apininjas = "test"
+emailable = "test"
 
 [redis]
 host = "redis"
